@@ -23,6 +23,7 @@
     <ProjectGuid>{45E31947-4DD4-4A2C-8A59-16DF699BE122}</ProjectGuid>
     <RootNamespace>adressbook</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <ProjectName>addressbook</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
