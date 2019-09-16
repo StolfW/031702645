@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <fstream>
 #include <locale>
 #include <codecvt>
 #include <Windows.h>
@@ -10,21 +12,8 @@ int wei[65536];
 int ans = 0, lend, lenc;
 wstring c, d;
 wofstream fout;
-std::wstring StringToWString(const std::string& str) {
-	size_t convertedChars = 0;
-	setlocale(LC_ALL, "chs");
-	const char* point_to_source = str.c_str();
-	size_t new_size = str.size() + 1;
-	wchar_t *point_to_destination = new wchar_t[new_size];
-	wmemset(point_to_destination, 0, new_size);
-	mbstowcs_s(&convertedChars, point_to_destination, new_size, point_to_source, new_size);
-	std::wstring result = point_to_destination;
-	delete[] point_to_destination;
-	setlocale(LC_ALL, "C");
-	return result;
-}
-std::string WStringToString(const std::wstring &wstr) {
-	std::string str;
+string WStringToString(const wstring &wstr) {
+	string str;
 	int nLen = (int)wstr.length();
 	str.resize(nLen, ' ');
 	int nResult = WideCharToMultiByte(CP_ACP, 0, (LPCWSTR)wstr.c_str(), nLen, (LPSTR)str.c_str(), nLen, NULL, NULL);
@@ -33,7 +22,7 @@ std::string WStringToString(const std::wstring &wstr) {
 	}
 	return str;
 }
-string Utf8ToGbk(const char *src_str) {
+wstring Utf8ToGbk(const char *src_str) {
 	int len = MultiByteToWideChar(CP_UTF8, 0, src_str, -1, NULL, 0);
 	wchar_t* wszGBK = new wchar_t[len + 1];
 	memset(wszGBK, 0, len * 2 + 2);
@@ -42,10 +31,20 @@ string Utf8ToGbk(const char *src_str) {
 	char* szGBK = new char[len + 1];
 	memset(szGBK, 0, len + 1);
 	WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, szGBK, len, NULL, NULL);
-	string strTemp(szGBK);
+	string str(szGBK);
 	if (wszGBK) delete[] wszGBK;
 	if (szGBK) delete[] szGBK;
-	return strTemp;
+	size_t cnt = 0;
+	setlocale(LC_ALL, "chs");
+	const char* pts = str.c_str();
+	size_t ns = str.size() + 1;
+	wchar_t *ptd = new wchar_t[ns];
+	wmemset(ptd, 0, ns);
+	mbstowcs_s(&cnt, ptd, ns, pts, ns);
+	wstring res = ptd;
+	delete[] ptd;
+	setlocale(LC_ALL, "C");
+	return res;
 }
 void pei() {
 	int w = 0;
@@ -60,8 +59,10 @@ void pei() {
 		if (!f) {
 			//cout << w << endl;
 			wstring ws;
-			for (int k = w + i; c[k] != 34; k--) ws = c[k] + ws;
-			for (int k = w + i + 1; c[k] != 34; k++) ws.push_back(c[k]);
+			for (int k = w; c[k] != 34; k--) 
+				ws = c[k] + ws;
+			for (int k = w + 1; c[k] != 34; k++) 
+				ws.push_back(c[k]);
 			fout << ws << endl;
 			w++;
 		}
@@ -83,22 +84,18 @@ int main(int argv, char** argc) {
 	wcout.imbue(locale("chs"));
 	buf = new char[maxlen];
 
-	ifstream fin;
-	fin.open(argc[1]);
-	ofstream fout;
-	fout.open(argc[2]);
-	string str((istreambuf_iterator<char>(fin)), istreambuf_iterator<char>());
-	// 关闭打开的文件
-	fout << str;
-	fin.close();
-	fout.close();
+	ifstream fin(argc[1]);
+	fin >> buf;
+	ofstream fout(argc[2]);
+	fout << buf;
+
 	/*ifstream fin("address.json");
 	fin >> buf;
-	c = StringToWString(Utf8ToGbk(buf));
+	c = Utf8ToGbk(buf);
 	fin.close();
-	fin.open("11.txt");
+	fin.open("1.txt");
 	fin >> buf;
-	d = StringToWString(Utf8ToGbk(buf));
+	d = Utf8ToGbk(buf);
 	fin.close();
 	d = d.substr(1, d.size() - 1);
 	lenc = c.size() - 1;
@@ -108,12 +105,8 @@ int main(int argv, char** argc) {
 	for (int i = 0; i <= lend; ++i)
 		wei[d[i]] = i;
 	fout.imbue(locale("chs"));
-	fout.open("111.txt");
+	fout.open("2.txt");
 	pei();
-	fout.close();*/
-	system("pause");
+	fout.close();
+	system("pause");*/
 }
-/*
-福建省。北京市。福州市。安徽省。浙江省。河南省。河北省。列东街道。山东省。闽侯县。福州大学。
-福州
-*/
