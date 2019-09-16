@@ -77,11 +77,22 @@ void pei() {
 }
 char *buf;
 const int maxlen = 2000000;
-int main() {
+int main(int argv, char** argc) {
+	if (argv < 3) return 0;
 	ios::sync_with_stdio(false);
 	wcout.imbue(locale("chs"));
 	buf = new char[maxlen];
-	ifstream fin("address.json");
+
+	ifstream fin;
+	fin.open(argc[1]);
+	ofstream fout;
+	fout.open(argc[2]);
+	string str((istreambuf_iterator<char>(fin)), istreambuf_iterator<char>());
+	// 关闭打开的文件
+	fout << str;
+	fin.close();
+	fout.close();
+	/*ifstream fin("address.json");
 	fin >> buf;
 	c = StringToWString(Utf8ToGbk(buf));
 	fin.close();
@@ -99,10 +110,10 @@ int main() {
 	fout.imbue(locale("chs"));
 	fout.open("111.txt");
 	pei();
-	fout.close();
-	//system("pause");
+	fout.close();*/
+	system("pause");
 }
 /*
 福建省。北京市。福州市。安徽省。浙江省。河南省。河北省。列东街道。山东省。闽侯县。福州大学。
 福州
- */
+*/
