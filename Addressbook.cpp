@@ -81,35 +81,30 @@ void Addressbook::normalization() {
 			curFile[curFile.size() - 1]++;
 		}
 	}
-	int roadPos = 0, numPos = 0;
-	bool hasRoad = 0, hasNum = 0;
-	for (int i = trimmed.size() - 1; i >= curIdx && !hasRoad; i--) {
-		for (int j = 0; j < (int)road.size() && !hasRoad; j++) {
-			if (road[j] == trimmed[i]) {
-				hasRoad = 1;
-				roadPos = i;
+	bool mark = 0;
+	for (int i = trimmed.size() - 1; i >= curIdx && !mark; i--) {
+		if (trimmed[i] == L'ºÅ' && i && trimmed[i - 1] >= L'0' && trimmed[i - 1] <= L'9') {
+			if (i + 1 < (int)trimmed.size() && trimmed[i + 1] == L'Â¥') 
+				break;
+			int j = i - 1;
+			while (trimmed[j] < 256) j--;
+			level[4] = Element("", "", trimmed.substr(curIdx, j - curIdx + 1));
+			level[5] = Element("", "", trimmed.substr(j + 1, i - j));
+			level[6] = Element("", "", trimmed.substr(i + 1, trimmed.size() - i - 1));
+			mark = 1;
+		}
+	}
+	for (int i = trimmed.size() - 1; i >= curIdx && !mark; i--) {
+		for (int j = 0; j < (int)road.size() && !mark; j++) {
+			if (road[j] == trimmed[i] || trimmed[i] == L'Í¬' && trimmed[i - 1] == L'ºú') {
+				level[4] = Element("", "", trimmed.substr(curIdx, i - curIdx + 1));
+				level[5] = Element("", "", L"");
+				level[6] = Element("", "", trimmed.substr(i + 1, trimmed.size() - i - 1));
+				mark = 1;
 			}
 		}
 	}
-	for (int i = trimmed.size() - 1; i >= curIdx && !hasNum; i--) {
-		if (trimmed[i] == L'ºÅ' && i && trimmed[i - 1] >= L'0' && trimmed[i - 1] <= L'9') {
-			hasNum = 1;
-			numPos = i;
-		}
-	}
-	if (!hasRoad) missing[4] = 1, missing[5] = 1;
-	else if (!hasNum) missing[5] = 1;
-	if (hasRoad && hasNum) {
-		level[4] = Element("", "", trimmed.substr(curIdx, roadPos - curIdx + 1));
-		level[5] = Element("", "", trimmed.substr(roadPos + 1, numPos - roadPos));
-		level[6] = Element("", "", trimmed.substr(numPos + 1, trimmed.size() - numPos - 1));
-	}
-	else if (hasRoad) {
-		level[4] = Element("", "", trimmed.substr(curIdx, roadPos - curIdx + 1));
-		level[5] = Element("", "", L"");
-		level[6] = Element("", "", trimmed.substr(roadPos + 1, trimmed.size() - roadPos - 1));
-	}
-	else {
+	if (!mark) {
 		level[4] = Element("", "", L"");
 		level[5] = Element("", "", L"");
 		level[6] = Element("", "", trimmed.substr(curIdx, trimmed.size() - curIdx));

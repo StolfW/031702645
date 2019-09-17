@@ -37,18 +37,7 @@ bool IO::read(const int len) {
 	fin.close();
 	return false;
 }
-wstring s2ws(const string& s) {
-	setlocale(LC_ALL, "chs");
-	const char* _Source = s.c_str();
-	size_t _Dsize = s.size() + 1, cnt = 0;
-	wchar_t *_Dest = new wchar_t[_Dsize];
-	wmemset(_Dest, 0, _Dsize);
-	mbstowcs_s(&cnt, _Dest, _Dsize, _Source, _Dsize);
-	wstring result = _Dest;
-	delete[]_Dest;
-	setlocale(LC_ALL, "C");
-	return result;
-}
+
 wstring IO::toWString(bool utf8) {
 	if (!utf8) {
 		setlocale(LC_ALL, "chs");
@@ -87,4 +76,11 @@ wstring IO::toWString(bool utf8) {
 	//res.erase(0, 1);
 	delete[] buf;
 	return res;
+}
+
+void IO::output(const string& filename, const wstring& str) {
+	wofstream wfout(filename, ios::app);
+	wfout.imbue(locale(wfout.getloc(), new codecvt_utf8<wchar_t, 0x10ffff, little_endian>));
+	wfout << str;
+	wfout.close();
 }
