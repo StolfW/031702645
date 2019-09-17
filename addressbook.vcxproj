@@ -19,7 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Addressbook.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="func.cpp" />
+    <ClCompile Include="IO.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Addressbook.h" />
+    <ClInclude Include="func.h" />
+    <ClInclude Include="IO.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -79,6 +87,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <HeapReserveSize>10000000</HeapReserveSize>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
