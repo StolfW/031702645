@@ -5,7 +5,12 @@ VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addressbook", "addressbook.vcxproj", "{B6E8D50D-AE2C-46E6-8971-EAA9B95C4D96}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "..\UnitTest\UnitTest.vcxproj", "{94792610-13BB-4FF0-9EED-A112CC57A7AE}"
+EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -21,6 +26,14 @@ Global
 		{B6E8D50D-AE2C-46E6-8971-EAA9B95C4D96}.Release|x64.Build.0 = Release|x64
 		{B6E8D50D-AE2C-46E6-8971-EAA9B95C4D96}.Release|x86.ActiveCfg = Release|Win32
 		{B6E8D50D-AE2C-46E6-8971-EAA9B95C4D96}.Release|x86.Build.0 = Release|Win32
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Debug|x64.ActiveCfg = Debug|x64
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Debug|x64.Build.0 = Debug|x64
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Debug|x86.ActiveCfg = Debug|Win32
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Debug|x86.Build.0 = Debug|Win32
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Release|x64.ActiveCfg = Release|x64
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Release|x64.Build.0 = Release|x64
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Release|x86.ActiveCfg = Release|Win32
+		{94792610-13BB-4FF0-9EED-A112CC57A7AE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

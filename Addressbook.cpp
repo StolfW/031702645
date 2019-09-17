@@ -29,6 +29,16 @@ void Addressbook::normalization() {
 	trimmed = origin;
 	separateName(trimmed);
 	separatePhoneNumber(trimmed);
+	wstring tmp = trimmed.substr(0, 2);
+	if (tmp == L"北京" || tmp == L"上海" || tmp == L"重庆" || tmp == L"天津") {
+		trimmed.erase(0, 2);
+		if (trimmed[0] == L'市') {
+			trimmed = tmp + tmp + trimmed;
+		}
+		else {
+			trimmed = tmp + tmp + L"市" + trimmed;
+		}
+	}
 	int curLev = 0, curIdx = 0;
 	wstring now;
 	string curFile = "0a0";
@@ -38,12 +48,6 @@ void Addressbook::normalization() {
 			break;
 		}
 		now.push_back(trimmed[i]);
-		if (now == L"北京" || now == L"天津" || now == L"重庆" || now == L"上海") {
-			if (trimmed[i + 1] == L'市') {
-				i++;
-				now.push_back(trimmed[i]);
-			}
-		}
 		vector<Element> fnd = search(curFile, now);
 		if (fnd.size() == 1) {
 			int k = i, cnt = (int)fnd[0].addr.size() - now.size();
