@@ -5,8 +5,8 @@
 string infile = "1.txt", outfile = "2.txt";
 
 int main(int argv, char** argc) {
-	//if (argv < 3) return 0;
-	//infile = argc[1], outfile = argc[2];
+	if (argv < 3) return 0;
+	infile = argc[1], outfile = argc[2];
 	IO io;
 	io.open(infile);
 	io.output(outfile, L"[");
