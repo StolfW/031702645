@@ -124,7 +124,10 @@ void Addressbook::normalization() {
 	}
 }
 Element Addressbook::searchId(const string& filename, const string& str) {
-	io.open("Tables\\" + filename + ".in");
+	TCHAR exeFullPath[MAX_PATH];
+	memset(exeFullPath, 0, MAX_PATH);
+	GetModuleFileName(NULL, exeFullPath, MAX_PATH);
+	io.open(string(exeFullPath).substr(0, strlen(exeFullPath) - 15) + "Tables\\" + filename + ".in");
 	io.read();
 	return sundayId(io.toWString(0), str);
 }
