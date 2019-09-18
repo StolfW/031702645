@@ -244,9 +244,7 @@ vector<Element> Addressbook::sunday(const wstring& Text, const wstring& Pattern)
 	return fnd;
 }
 
-void Addressbook::Export(const string& filename) {
-	wofstream wfout(filename, ios::app);
-	wfout.imbue(locale(wfout.getloc(), new codecvt_utf8<wchar_t, 0x10ffff, little_endian>));
+void Addressbook::Export(wstring& OUTPUT) {
 	int type = 0;
 	for (int i = 0; i < (int)origin.size(); i++) {
 		if (origin[i] >= L'0' && origin[i] <= L'9') {
@@ -254,34 +252,43 @@ void Addressbook::Export(const string& filename) {
 			break;
 		}
 	}
-	wfout << L"{\"姓名\":\"" << name << L"\",\"手机\":\"" << phoneNumber << L"\",\"地址\":[\"";
+	OUTPUT.append(L"{\"姓名\":\"");
+	OUTPUT.append(name);
+	OUTPUT.append(L"\",\"手机\":\"");
+	OUTPUT.append(phoneNumber);
+	OUTPUT.append(L"\",\"地址\":[\"");
 	if (type == 1) {
 		for (int i = 0; i < 4; i++) {
 			if (missing[i]) {
-				wfout << L"\",\"";
+				OUTPUT.append(L"\",\"");
 			}
 			else {
-				wfout << level[i].addr << L"\",\"";
+				OUTPUT.append(level[i].addr);
+				OUTPUT.append(L"\",\"");
 			}
 		}
-		wfout << level[4].addr + level[5].addr + level[6].addr << L"\"]}";
+		OUTPUT.append(level[4].addr + level[5].addr + level[6].addr);
+		OUTPUT.append(L"\"]}");
 	}
 	else if (type == 2) {
 		for (int i = 0; i < 6; i++) {
 			if (i < 4 && missing[i]) {
-				wfout << L"\",\"";
+				OUTPUT.append(L"\",\"");
 			}
 			else {
-				wfout << level[i].addr << L"\",\"";
+				OUTPUT.append(level[i].addr);
+				OUTPUT.append(L"\",\"");
 			}
 		}
-		wfout << level[6].addr << L"\"]}";
+		OUTPUT.append(level[6].addr);
+		OUTPUT.append(L"\"]}");
 	}
 	else {
 		for (int i = 0; i < 6; i++) {
-			wfout << level[i].addr << L"\",\"";
+			OUTPUT.append(level[i].addr);
+			OUTPUT.append(L"\",\"");
 		}
-		wfout << level[6].addr << L"\"]}";
+		OUTPUT.append(level[6].addr);
+		OUTPUT.append(L"\"]}");
 	}
-	wfout.close();
 }

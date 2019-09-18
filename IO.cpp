@@ -79,7 +79,7 @@ wstring IO::toWString(bool utf8) {
 }
 
 void IO::output(const string& filename, const wstring& str) {
-	wofstream wfout(filename, ios::app);
+	wofstream wfout(filename);
 	wfout.imbue(locale(wfout.getloc(), new codecvt_utf8<wchar_t, 0x10ffff, little_endian>));
 	wfout << str;
 	wfout.close();

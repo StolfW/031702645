@@ -21,18 +21,19 @@ public:
 	void normalization();
 	bool separateName(wstring& str);
 	bool separatePhoneNumber(wstring& str);
-	void Export(const string& filename);
+	void Export(wstring& OUTPUT);
 	vector<Element> search(const string& filename, const wstring& str);
 	Element searchId(const string& filename, const string& str);
 	vector<Element> sunday(const wstring& Text, const wstring& Pattern);
 	Element sundayId(const wstring& Text, const string& Pattern);
-
+	wstring origin, trimmed;
+	wstring phoneNumber;
 private:
 	bool missing[10];
 	vector<Element> level;
-	wstring origin, trimmed;
+	
 	wstring name;
-	wstring phoneNumber;
+	
 	IO io;
 	int* bit;
 };
