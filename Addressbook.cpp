@@ -170,7 +170,10 @@ Element Addressbook::sundayId(const wstring& Text, const string& Pattern) {
 }
 
 vector<Element> Addressbook::search(const string& filename, const wstring& str) {
-	io.open("Tables\\" + filename + ".in");
+	TCHAR exeFullPath[MAX_PATH];
+	memset(exeFullPath, 0, MAX_PATH);
+	GetModuleFileName(NULL, exeFullPath, MAX_PATH);
+	io.open(string(exeFullPath).substr(0, strlen(exeFullPath) - 15) + "Tables\\" + filename + ".in");
 	io.read();
 	return sunday(io.toWString(0), str);
 }
