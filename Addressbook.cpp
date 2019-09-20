@@ -159,6 +159,7 @@ Element Addressbook::sundayId(const wstring& Text, const string& Pattern) {
 			}
 			fid = wstringToString(wfid);
 			reverse(fid.begin(), fid.end());
+			delete[] bit;
 			return (Element(fid, "", ws));
 		}
 		else {
@@ -169,6 +170,7 @@ Element Addressbook::sundayId(const wstring& Text, const string& Pattern) {
 				w = w + i - bit[Text[w + i]] + 1;
 		}
 	}
+	delete[] bit;
 	return Element();
 }
 
@@ -236,7 +238,10 @@ vector<Element> Addressbook::sunday(const wstring& Text, const wstring& Pattern)
 			}
 			reverse(fid.begin(), fid.end());
 			fnd.push_back(Element(fid, id, ws));
-			if (fnd.size() > 1) return fnd;
+			if (fnd.size() > 1) {
+				delete[] bit;
+				return fnd;
+			}
 			w++;
 		}
 		else {
@@ -247,6 +252,7 @@ vector<Element> Addressbook::sunday(const wstring& Text, const wstring& Pattern)
 				w = w + i - bit[Text[w + i]] + 1;
 		}
 	}
+	delete[] bit;
 	return fnd;
 }
 
